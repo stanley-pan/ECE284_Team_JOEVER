@@ -109,5 +109,6 @@ For each Alpha submission, include a separate subfolder named like `Alpha1_<Name
 - Include concise READMEs where useful to help run your design without assumptions.
 - If your project requires special steps or non-standard tools, document those steps and include any scripts needed to reproduce the results.
 
-Filelist Example:
+Example of filelist:
+
 ![Filelist example](images/filelist_example.svg)
