@@ -121,7 +121,7 @@ initial begin
   $dumpfile("core_tb.vcd");
   $dumpvars(0,core_tb);
 
-  x_file = $fopen("activation.txt", "r");
+	x_file = $fopen("../datafiles/activation.txt", "r");
   // Following three lines are to remove the first three comment lines of the file
   x_scan_file = $fscanf(x_file,"%s", captured_data);
   x_scan_file = $fscanf(x_file,"%s", captured_data);
@@ -457,15 +457,15 @@ D_xmem={D_xmem_temp1[9][31:28],D_xmem_temp1[8][31:28],D_xmem_temp1[7][31:28],D_x
  for (kij=0; kij<9; kij=kij+1) begin  // kij loop
 
     case(kij)
-     0: w_file_name = "weight_k0.txt";
-     1: w_file_name = "weight_k1.txt";
-     2: w_file_name = "weight_k2.txt";
-     3: w_file_name = "weight_k3.txt";
-     4: w_file_name = "weight_k4.txt";
-     5: w_file_name = "weight_k5.txt";
-     6: w_file_name = "weight_k6.txt";
-     7: w_file_name = "weight_k7.txt";
-     8: w_file_name = "weight_k8.txt";
+     0: w_file_name = "../datafiles/weight_k0.txt";
+     1: w_file_name = "../datafiles/weight_k1.txt";
+     2: w_file_name = "../datafiles/weight_k2.txt";
+     3: w_file_name = "../datafiles/weight_k3.txt";
+     4: w_file_name = "../datafiles/weight_k4.txt";
+     5: w_file_name = "../datafiles/weight_k5.txt";
+     6: w_file_name = "../datafiles/weight_k6.txt";
+     7: w_file_name = "../datafiles/weight_k7.txt";
+     8: w_file_name = "../datafiles/weight_k8.txt";
     endcase
     w_file = $fopen(w_file_name, "r");
     // Following three lines are to remove the first three comment lines of the file
