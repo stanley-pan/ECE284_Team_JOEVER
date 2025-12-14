@@ -566,7 +566,7 @@ end
     #0.5 clk = 1'b1; 
     #0.5 clk =1'b1;
     ////////// Accumulation /////////
-  out_file = $fopen("output.txt", "r");  
+  out_file = $fopen("../datafiles/output.txt", "r");  
 
   // Following three lines are to remove the first three comment lines of the file
   out_scan_file = $fscanf(out_file,"%s", answer); 
