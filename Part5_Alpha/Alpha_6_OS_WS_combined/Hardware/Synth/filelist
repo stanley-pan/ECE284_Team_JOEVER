@@ -1,0 +1,15 @@
+../verilog/mac_Part4.sv
+../verilog/mac_row_Part4.sv
+../verilog/mac_array_Part4.sv
+../verilog/mac_tile_Part4.sv
+../verilog/fifo_depth64.sv
+../verilog/fifo_mux_2_1.sv
+../verilog/fifo_mux_8_1.sv
+../verilog/fifo_mux_16_1.sv
+../verilog/ofifo.sv
+../verilog/corelet_Part4.sv
+../verilog/core.v
+../verilog/core_tb.sv
+../verilog/l0.sv
+../verilog/sram_128b_w2048.sv
+
