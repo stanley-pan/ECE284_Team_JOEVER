@@ -7,6 +7,8 @@
 ../verilog/fifo_mux_8_1.v
 ../verilog/fifo_mux_16_1.v
 ../verilog/ififo.v
+../verilog/fifo_depth16.v
+../verilog/fifo_depth8.v
 ../verilog/corelet.v
 ../verilog/core.v
 ../verilog/core_tb.v
