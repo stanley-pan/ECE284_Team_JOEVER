@@ -630,7 +630,6 @@ end
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[2][0]=(out_sta[2][0][15]) ? 16'b0 : out_sta[2][0];
      out_sta1[2][1]=(out_sta[2][1][15]) ? 16'b0 : out_sta[2][1];
      out_sta1[2][2]=(out_sta[2][2][15]) ? 16'b0 : out_sta[2][2];
@@ -654,7 +653,6 @@ out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to a
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[3][0]=(out_sta[3][0][15]) ? 16'b0 : out_sta[3][0];
      out_sta1[3][1]=(out_sta[3][1][15]) ? 16'b0 : out_sta[3][1];
      out_sta1[3][2]=(out_sta[3][2][15]) ? 16'b0 : out_sta[3][2];
@@ -678,7 +676,6 @@ out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to a
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[4][0]=(out_sta[4][0][15]) ? 16'b0 : out_sta[4][0];
      out_sta1[4][1]=(out_sta[4][1][15]) ? 16'b0 : out_sta[4][1];
      out_sta1[4][2]=(out_sta[4][2][15]) ? 16'b0 : out_sta[4][2];
@@ -702,7 +699,6 @@ out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to a
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[5][0]=(out_sta[5][0][15]) ? 16'b0 : out_sta[5][0];
      out_sta1[5][1]=(out_sta[5][1][15]) ? 16'b0 : out_sta[5][1];
      out_sta1[5][2]=(out_sta[5][2][15]) ? 16'b0 : out_sta[5][2];
@@ -726,7 +722,6 @@ out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to a
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[6][0]=(out_sta[6][0][15]) ? 16'b0 : out_sta[6][0];
      out_sta1[6][1]=(out_sta[6][1][15]) ? 16'b0 : out_sta[6][1];
      out_sta1[6][2]=(out_sta[6][2][15]) ? 16'b0 : out_sta[6][2];
@@ -750,7 +745,6 @@ out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to a
    
     #0.5 clk = 1'b0; //reset = 1;  
      out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
-out_scan_file = $fscanf(out_file,"%b128", answer); // reading from out file to answer
      out_sta1[7][0]=(out_sta[7][0][15]) ? 16'b0 : out_sta[7][0];
      out_sta1[7][1]=(out_sta[7][1][15]) ? 16'b0 : out_sta[7][1];
      out_sta1[7][2]=(out_sta[7][2][15]) ? 16'b0 : out_sta[7][2];
