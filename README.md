@@ -2,9 +2,6 @@
 
 ![Folder structure preview](images/folder_structure.svg)
 
-## Important: Submission structure and naming
-- Your submission must be a single ZIP file named exactly: `ECE284_Team_<Teamname>.zip`.
-- The ZIP must preserve the directory layout shown below. Not following the structure can incur up to a 15% penalty.
 
 Top-level folders (required):
 - `Part1_Vanilla`
@@ -15,107 +12,52 @@ Top-level folders (required):
 - `Part6_Report`
 - `Part7_ProgressReport`
 
-Each part described below contains required files and folder structure. Follow the naming and paths exactly so TAs can run automated checks.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SIMD and Weight/Output-Reconfigurable 2D Systolic Array AI Accelerator
 
----
+ECE 284: Low Power VLSI for Machine Learning
 
-## Part1_Vanilla
+Team: Jesse Vernallis, Sankalpa Hota, Ned Bitar, Stanley Pan, Rohon Ray, Madeleine McSwain
+Department: Electrical and Computer Engineering
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Part 1: Vanilla Weight-Stationary Accelerator
 
-Folder layout (summary):
-- `software/` (5%):
-  - `VGG16_Quantization_Aware_Training.ipynb`
-  - `VGG16_Quantization_Aware_Training.pdf`
-  - `misc/` (any extra scripts or notes)
-- `hardware/` (15%):
-  - `verilog/` — all HDL sources, e.g. `core.v`, `corelet.v`, `mac_array.v`, etc.
-  - `datafiles/` — input files used by the testbench: `weight.txt`, `activation.txt`, `psum.txt` (may be multiple files for different parameter sets)
-  - `sim/` — simulation files and the runtime filelist
-    - `filelist` — REQUIRED: a plain text file named exactly `filelist` (no extension). This file should contain relative paths to the design files under `verilog/` (example shown later). Do NOT use absolute paths.
-- `synth/` (10%):
-  - `FPGA_Report.pdf` — include a table with measured parameters (area, LUTs/FFs, freq, power estimates, etc.). The example values in class are illustrative only.
+A 4-bit quantization-aware VGG16 model was trained to 92% accuracy, with layer 27 compressed to an 8×8 channel convolution. When mapped to hardware (with padding), this resulted in 36 input pixels and 16 output pixels.
 
-What TAs will do (automated checks):
-- `cd Part1_Vanilla/hardware/sim`
-- `iveri filelist` (5%) — compile using the provided `filelist`; successful compile gives full credit for compilation.
-- `irun` (5%) — run simulation; your design must produce correct outputs. Passing gives full/half credits per described grading breakdown.
-- TAs will then replace the weight files in `Part1_Vanilla/hardware/datafiles` with their own test vectors and re-run `irun` (5%) to check verification with instructor files. Your design must both pass correct verification and fail when an incorrect `psum` is provided.
+The systolic array executes dot products between input activations and kernel weights, producing partial sums stored in PSUM memory. A Special Function Processor (SFP) uses a LUT to accumulate final outputs across channels and applies ReLU activation. Functional correctness was verified through simulation.
 
-Notes:
-- Keep `filelist` entries relative so TAs can compile directly from your submitted folders.
-- Include a short README in `Part1_Vanilla` explaining how to invoke the simulation if non-standard steps are required.
+Part 2: 2-bit / 4-bit Lane-Reconfigurable SIMD Array
 
----
+To reduce activation precision, the model was retrained using 2-bit activations and 4-bit weights, achieving 90% accuracy. The MAC tile was redesigned to operate over two cycles, allowing two 2-bit activations (packed into 4 bits) to be processed per cycle.
 
-## Part2_SIMD
+Runtime configurability enables switching between 2-bit and 4-bit activation modes without recompilation. The SFU was updated to correctly support both precisions, ensuring correct PSUM accumulation across modes.
 
-Folder layout (summary):
-- `software/` (5%):
-  - `VGG16_Quantization_Aware_Training.ipynb` (include models for 2-bit activations and 4-bit weights as required)
-  - `VGG16_Quantization_Aware_Training.pdf`
-  - `misc/`
-- `hardware/` (15%):
-  - `verilog/` (design files)
-  - `datafiles/` (separate sets for 2-bit and 4-bit cases)
-  - `sim/` (simulation folder with `filelist` named exactly `filelist`)
+Part 3: Weight-Stationary and Output-Stationary Reconfigurable Array
 
-What TAs will do:
-- `cd Part2_SIMD/hardware/sim`
-- `iveri filelist` (5%) — compile using the provided `filelist`.
-- `irun` (5%) — run simulation. Your default testbench should exercise both the 4-bit-activation and 2-bit-activation modes without requiring recompilation. If your testbench runs both modes automatically, TAs will evaluate outputs accordingly.
-- TAs will then update `Part2_SIMD/hardware/datafiles` with instructor-provided weight files and re-run `irun` (5%) to verify correctness and negative tests (e.g., incorrect `psum`).
+An Output-Stationary (OS) dataflow was added using a dedicated control signal. In OS mode, partial sums are accumulated locally while weights stream from the north and activations from the west. A FIFO-based buffering scheme supports this routing, enabling seamless switching between WS and OS mappings at runtime.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Part 4: Alpha Explorations (Summary)
 
----
+Alpha 1 – ResNet Mapping: Demonstrated efficient mapping of ResNet layers, leveraging structured dataflow and activation reuse.
 
-## Part3_Reconfigurable
+Alpha 2 – Clock Gating: Introduced FIFO-based clock gating, reducing unnecessary switching activity with minimal performance impact.
 
-Structure and requirements are analogous to Parts 1 and 2. Use the same layout:
-- `software/` (5%): include training notebook, PDF and `misc/`.
-- `hardware/` (15%): `verilog/`, `datafiles/`, `sim/` with `filelist`.
+Alpha 3 – Pruning: Combined structured and unstructured pruning achieved ~80% sparsity with 82% accuracy.
 
-What TAs will do:
-- `cd Part3_Reconfigurable/hardware/sim`
-- `iveri filelist` (5%) — compile using the provided `filelist`.
-- `irun` (5%) — run simulation; the default testbench should cover the expected reconfigurable modes without requiring recompilation.
-- TAs will replace `datafiles` with instructor vectors and re-run verification (5%). Your design should pass positive tests and fail on intentionally incorrect `psum` inputs.
+Alpha 4 – Nij LUT & In-Place PSUM: Eliminated unused MACs and PSUM memory, achieving up to 45% convolution speedup.
 
----
+Alpha 5 – FIFO Depth Reduction: Reduced FIFO depth from 64 to 16, cutting FIFO register usage by 75%.
 
-## Part4_Poster
+Alpha 6 – Full Integration: Unified SIMD precision (2/4-bit) with WS/OS dataflows in a single architecture.
 
-- Place your project poster PDF and the `Alpha` progress report (from any prior submission) in this folder. Include a short README describing poster authors and any display notes.
+Logic Utilization: 23% ALMs
 
----
+DSP Blocks: 30
 
-## Part5_Alpha
+Alpha 7 – FPGA Mapping: Successfully synthesized on Cyclone V FPGA, validating feasibility under hardware constraints.
 
-For each Alpha submission, include a separate subfolder named like `Alpha1_<Name>` containing:
-- Required source files (follow software/hardware layouts from Part1 depending on the alpha type).
-- A `README` describing how to validate and run the Alpha submission (commands, expected outputs, and any configuration). This makes it easier to validate your alphas faster and avoids grading delays.
+Alpha 8 – 2-bit Activations & Weights: Reduced logic utilization to 16% ALMs, exploring efficiency vs. accuracy tradeoffs.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Conclusion
 
----
-
-## Part6_Report
-
-- Your final written report (2–5 pages) should clearly state for each part:
-  - What was implemented
-  - Observed results and measured numbers
-  - Interpretation and conclusions
-- Keep the report within the 2–5 page limit.
-
-## Part7_ProgressReport
-
-Add your progress report files here. Name the main file `ProgressReport.pdf` (PDF preferred).
-Just fill in the status of all your parts, and alpha in very short as you did for poster submission.
-  - A template `ECE284 Progress Report.docx` is present in `Part7_ProgressReport/` — replace it with your updated pdf.
-
----
-
-## General notes and best practices
-- Always use relative paths inside `filelist` and other project files; do not include absolute paths with usernames.
-- Name the filelist exactly `filelist` with no extension — plain ASCII text listing relative paths to HDL sources.
-- Include concise READMEs where useful to help run your design without assumptions.
-- If your project requires special steps or non-standard tools, document those steps and include any scripts needed to reproduce the results.
-
-Example of filelist:
-
-![Filelist example](images/filelist_example.svg)
+This project demonstrates a highly flexible systolic-array-based AI accelerator supporting runtime reconfiguration of precision and dataflow, with multiple architectural optimizations that significantly improve performance, area efficiency, and power characteristics. FPGA synthesis confirms the practicality of the design, while alpha explorations highlight future optimization opportunities.
